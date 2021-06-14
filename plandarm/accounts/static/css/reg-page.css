@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
 html, body {
     font-family: "Open Sans";
     font-size: 16px;
     height: 100%;
     margin: 0;
-    background-color: lightcyan;
+    background-color: white;
 }
 
 .wrap-reg {
@@ -14,9 +16,9 @@ html, body {
 }
 
 .form {
-    background-color: lightsalmon;
+    background-color: rgb(233, 232, 229);
     padding: 2%;
-    border: solid rgb(207, 132, 107);
+    /* border: solid rgb(207, 132, 107); */
     border-radius: 5px;
     text-align: center;
 }
@@ -33,7 +35,7 @@ html, body {
 
 #name-surname > * {
     margin: 2%;
-    max-width: 42%;
+    max-width: 44%;
 }
 
 .regbox > input {
@@ -42,19 +44,26 @@ html, body {
 }
 
 #submit-reg {
-    margin: 4%;;
-    min-width: 50%;
-    align-self: center;
+    font-family: "Arial";
+    min-width: 0%;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
     background-color: white;
-    color: black;
-    border: 2px solid #555555;
+    color: #ee5037;
+    border: 0.1px solid #fc7233;
     font-size: 16px;
     border-radius: 5px;
     vertical-align: middle;
 }
-  
-#submit-reg:hover {
-    background-color: #555555;
-    color: white;
+
+h2 {
+    font-family: Arial;
+    font-size: 1.4em;
+    margin-bottom: 0.5em;
+  }
+
+  #submit-reg:active {
+    background-color: rgb(253, 238, 232);
+    color: rgb(107, 30, 21);
     transition: 0.4s;
   }
