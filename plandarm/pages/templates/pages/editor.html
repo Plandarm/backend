@@ -1,0 +1,105 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta lang="en">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+    </style>
+
+  <!-- change code highlight style just below-->
+  <link rel="stylesheet"
+    href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/default.min.css">
+  
+  <!-- code highlight source -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+
+  <!-- code highlight init -->
+  <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <aside class="sidebar column">
+        <div class="sidebar-header">
+          <div>User</div>
+          <div>Search</div>
+          <div>Updates</div>
+          <div>Settings</div>
+        </div>
+
+        <ul class="sidebar-tree">
+          <li><div class="caret"></div>
+            <a href="#">Log out</a> <!-- %{ url 'logout' %} -->
+            <ul class="nested">
+              <li><a href="#">Docs</a></li>
+              <li><a href="#">Contributors</a></li>
+              <li><div class="caret"></div><a href="#">It's a long way to the top</a>
+                <ul class="nested">
+                  <li><a href="#">AC/DC</a></li>
+                  <li><a href="#">Sabaton</a></li>
+                  <li><div class="caret"></div><a href="#">Dive into this beutiful shit</a>
+                    <ul class="nested">
+                      <li><a href="#">Ready</a></li>
+                      <li><a href="#">For</a></li>
+                      <li><a href="#">this</a></li>
+                      <li><a href="#">?</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <script src="{% static 'js/tree-view.js' %}"></script>
+
+        <div class="sidebar-footer">
+          <div>New Page</div>
+        </div>
+      </aside>
+      
+      <div class="page column">
+        <div class="page-header">
+          <ul class="page-path page-header-elem">
+            <li><a href="#">Main</a></li>
+            <li><a href="#">Sub</a></li>
+            <li><a href="#">Sub-sub</a></li>
+            <li><a href="{% url 'page' page.id%}">{{ page.title }}</a></li>
+          </ul>
+        
+          <div class="page-header-elem" hidden>
+            Dark Mode
+          </div>
+
+          <div class="page-header-elem" hidden>
+            <b class="plandarm">Plandarm</b>
+          </div>
+
+        </div>
+        
+        <div class="page-wrapper filter">
+          <main class="page-main">
+            <section class="main-heading">
+              <h1 contenteditable="true">{{ page.title }}</h1>
+            </section>
+
+            <hr class="divider">
+      
+            <section class="main-body">
+              {{ page.html|safe }}
+
+            </section>
+
+            <script src="{% static 'js/block-dnd.js' %}"></script>
+            <script src="{% static 'js/add-remove-blocks.js' %}"></script>
+          </main>
+        </div>
+      </div>
+      
+    </div>
+  </body>
+</html>
