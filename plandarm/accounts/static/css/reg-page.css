@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+html, body {
+    font-family: "Open Sans";
+    font-size: 16px;
+    height: 100%;
+    margin: 0;
+    background-color: white;
+}
+
+.wrap-reg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.form {
+    background-color: rgb(233, 232, 229);
+    padding: 2%;
+    /* border: solid rgb(207, 132, 107); */
+    border-radius: 5px;
+    text-align: center;
+}
+
+.regbox {
+    display: flex;
+    flex-direction: column;
+}
+
+#name-surname {
+    display: flex;
+    flex-direction: row;
+}
+
+#name-surname > * {
+    margin: 2%;
+    max-width: 44%;
+}
+
+.regbox > input {
+    margin: 2%;
+    max-width: 100%;
+}
+
+#submit-reg {
+    font-family: "Arial";
+    min-width: 0%;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    background-color: white;
+    color: #ee5037;
+    border: 0.1px solid #fc7233;
+    font-size: 16px;
+    border-radius: 5px;
+    vertical-align: middle;
+}
+
+h2 {
+    font-family: Arial;
+    font-size: 1.4em;
+    margin-bottom: 0.5em;
+  }
+
+  #submit-reg:active {
+    background-color: rgb(253, 238, 232);
+    color: rgb(107, 30, 21);
+    transition: 0.4s;
+  }

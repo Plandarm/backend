@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'css/reg-page.css' %}">
+        <title>Registration Page</title>
+    </head>
+    <body>
+    <div class="wrap-reg">
+        <section class="form">
+            <h2>Register your Account</h2>
+            
+            <form class="regbox" method="POST" action="">
+                {% csrf_token %}
+                {{ form.email }}
+                <div id="name-surname">
+                    {{ form.first_name }}
+                    {{ form.last_name }}
+                </div>
+                {{ form.username }}
+                {{ form.password1 }}
+                {{ form.password2 }}
+
+                <input type="submit" value="Register" id="submit-reg">
+            </form>
+
+            {{ form.errors }}
+
+            <p>Already signed up? <a href="{% url 'login' %}">Log In</a></p>
+        </section>
+    </div>
+
+    <script>
+        var form_fields = document.getElementsByTagName('input')
+        form_fields[1].placeholder = 'Email Address..'
+        form_fields[2].placeholder = 'Name..'
+        form_fields[3].placeholder = 'Surname..'
+        form_fields[4].placeholder = 'Username..'
+        form_fields[5].placeholder = 'Password..'
+        form_fields[6].placeholder = 'Repeat Password..'
+    </script>
+    </body>
+</html>
