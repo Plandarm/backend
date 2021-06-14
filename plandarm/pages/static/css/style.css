@@ -1,0 +1,298 @@
+body {
+  font-family: "Open Sans";
+  font-size: 16px;
+  margin: 0;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+
+/* sidebar-related parameters */
+.sidebar {
+  background:rgb(247, 246, 243);
+  min-width: 150px;
+  flex-basis: 20vw;
+  flex-shrink: 0;
+}
+
+.sidebar-header {
+  flex-basis: auto;
+}
+
+.sidebar-header div {
+  padding: 5px 20px;
+  border-radius: 2px;
+  /* margin: 5px; */
+}
+
+.sidebar-header div:hover {
+  background-color:rgb(175, 168, 146);
+}
+
+.sidebar-tree {
+  flex-basis: auto;
+  flex-grow: 1;
+  overflow-y: auto;
+  margin: 20px;
+  padding: 0;
+}
+
+.sidebar-tree li {
+  padding-left: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-tree a:hover {
+  background-color:rgb(175, 168, 146);
+}
+
+.sidebar-tree ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.caret {
+  display: inline;
+  cursor: pointer;
+  user-select: none;
+}
+.nested {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
+.caret::before {
+  content: "\25B6";
+  color: black;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.caret-down::before {
+  transform: rotate(90deg);
+}
+
+
+.sidebar-footer {
+  flex-basis: auto;
+}
+
+.sidebar-footer div{
+  padding: 15px;
+  border-radius: 2px;
+}
+
+.sidebar-footer div:hover{
+  background-color:rgb(190, 186, 170);
+}
+
+/* page-related parameters */
+.page {
+  width: 80vw;
+  margin-right: auto;
+}
+
+/* Header parameters */
+.page-header {
+  display: flex;
+  flex-direction: row;
+}
+
+.page-header-elem {
+  align-self: center;
+  margin: 0.5em;
+  padding: 5px;
+  border-radius: 2px;
+}
+
+.page-header div:hover {
+  background-color:rgb(247, 246, 243);
+}
+
+/* Path to the current page */
+ul.page-path {
+  flex-grow: 1;
+  list-style: none;
+}
+
+ul.page-path li{
+  display: inline;
+}
+
+ul.page-path li>a{
+  text-decoration: none;
+  color: #000;
+  padding: 5px;
+}
+
+ul.page-path li>a:hover{
+  background-color:rgb(247, 246, 243);
+}
+
+ul.page-path li+li:before {
+  color: black;
+  content: "/\00a0";
+}
+
+
+/* Content-related parameters */
+.main-heading {
+  font-family: Arial;
+  font-size: 2em;
+}
+
+.page-wrapper {
+  overflow-y: auto;
+  flex-grow: 1;
+  padding: 20px;
+}
+
+/* content centrer */
+.page-main {
+  width: 80%;
+  margin: auto;
+}
+
+
+/* block-related parameters */
+.block {
+  padding: 1px;
+  border: 1px solid transparent;
+  min-height: 1em;
+  margin: auto;
+}
+
+.block:hover {
+  border: 1px solid rgb(138, 138, 138);
+  border-radius: 2px;
+}
+
+.block:enabled {
+  border: 1px solid rgb(138, 138, 138);
+  border-radius: 2px;
+}
+  
+[contenteditable] {
+  outline: 0px solid transparent;
+}
+
+summary {
+  outline: 0px solid transparent;
+}
+
+/* header parameters */
+.plandarm {
+  font-family: Arial;
+}
+
+.header1-block {
+  font-family: Arial;
+  font-size: 1.7em;
+  margin-bottom: 0.5em;
+}
+
+.header2-block {
+  font-family: Arial;
+  font-size: 1.4em;
+  margin-bottom: 0.5em;
+}
+
+.header3-block {
+  font-family: Arial;
+  font-size: 1.2em;
+  margin-bottom: 0.5em;
+}
+
+/* individual block parameters */
+.text-block {
+  margin-top: 0.1em;
+}
+
+.toggle-block{
+  margin-top: 0.1em;
+  margin-left: 0.85em;
+}
+
+details>.block{
+  margin-left: 1em;
+}
+
+.toggle-block>.block:nth-child(2) {
+  margin-top: 0.5em;
+}
+
+.list-block {
+  margin-top: 0.1em;
+  margin-left: 0.85em;
+  margin-left: em;
+}
+
+.list-block::before {
+  content: "●";
+}
+
+ol {
+  margin-top: 0.1em;
+}
+.numbered-list-block {
+  margin-top: 0.1em;
+  margin-left: -0.4em;
+}
+
+pre code {
+  margin-top: 0.1em;
+  font-family: "Mono";
+  display: block;
+  background-color: #ffffbf;
+  padding: 1em;
+  border: 1px solid #ffffbf;
+  overflow-x: auto;
+}
+
+.img-block {
+  margin-top: 0.1em;
+  text-align: center;
+  /* margin-left: auto;
+  margin-right: auto; */
+}
+
+@media (max-width: 1200px) {
+  .sidebar {
+    background:rgb(247, 246, 243);
+    min-width: 150px;
+    flex-basis: 25vw;
+    flex-shrink: 0;
+  }
+  .page {
+    width: 75vw;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 1000px) {
+  .sidebar {
+    background:rgb(247, 246, 243);
+    min-width: 150px;
+    flex-basis: 30vw;
+    flex-shrink: 0;
+  }
+  .page {
+    width: 70vw;
+    margin-right: auto;
+  }
+}
