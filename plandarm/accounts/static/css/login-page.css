@@ -1,0 +1,50 @@
+html, body {
+    font-family: "Open Sans";
+    font-size: 16px;
+    height: 100%;
+    margin: 0;
+    background-color: lightcyan;
+}
+
+.wrap-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.form {
+    background-color: lightsalmon;
+    padding: 2%;
+    border: solid rgb(207, 132, 107);
+    border-radius: 5px;
+    text-align: center;
+}
+
+.loginbox {
+    display: flex;
+    flex-direction: column;   
+}
+
+.loginbox > input {
+    margin: 2%;
+    max-width: 100%;
+}
+
+#submit {
+    margin: 4%;;
+    min-width: 50%;
+    align-self: center;
+    background-color: white;
+    color: black;
+    border: 2px solid #555555;
+    font-size: 16px;
+    border-radius: 5px;
+    vertical-align: middle;
+}
+  
+#submit:hover {
+    background-color: #555555;
+    color: white;
+    transition: 0.4s;
+}
