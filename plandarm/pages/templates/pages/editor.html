@@ -27,47 +27,34 @@
         <div class="sidebar-header">
           <div>User</div>
           <div>Search</div>
-          <div>Updates</div>
           <div>Settings</div>
-        </div>
-
+          <a href="{% url 'logout' %}"><div>Log out</div></a>
+        </div>      
+        
         <ul class="sidebar-tree">
-          <li><div class="caret"></div>
-            <a href="{% url 'logout' %}">Log out</a>
-            <ul class="nested">
-              <li><a href="#">Docs</a></li>
-              <li><a href="#">Contributors</a></li>
-              <li><div class="caret"></div><a href="#">It's a long way to the top</a>
-                <ul class="nested">
-                  <li><a href="#">AC/DC</a></li>
-                  <li><a href="#">Sabaton</a></li>
-                  <li><div class="caret"></div><a href="#">Dive into this beutiful shit</a>
-                    <ul class="nested">
-                      <li><a href="#">Ready</a></li>
-                      <li><a href="#">For</a></li>
-                      <li><a href="#">this</a></li>
-                      <li><a href="#">?</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
+          <div>📝 Your pages:<hr></div>
+            {% for page_name in user_pages %}
+
+              {% if page_name.id != page.id %}
+                <a href="{% url 'page' page_name.id %}"><li class="tree-item">{{ page_name.title }}</li></a>
+              {% else %}
+                <a href="{% url 'page' page_name.id %}"><li class="tree-item-current">{{ page_name.title }}</li></a>
+              {% endif %}
+
+            {% endfor %}
         </ul>
 
         <script src="{% static 'js/tree-view.js' %}"></script>
 
         <div class="sidebar-footer">
-          <a href="/page/create"><div>New Page</div></a>
+          <a href="/page/create"><div>Add Page</div></a>
         </div>
       </aside>
       
       <div class="page column">
         <div class="page-header">
           <ul class="page-path page-header-elem">
-            <li><a href="#">Main</a></li>
-            <li><a href="#">Sub</a></li>
-            <li><a href="#">Sub-sub</a></li>
+            <li><a href="#">{{page.owner|safe}}</a></li>
             <li><a href="{% url 'page' page.id%}">{{ page.title | safe }}</a></li>
           </ul>
         
@@ -75,11 +62,11 @@
             Dark Mode
           </div>
 
-          <div class="page-header-elem">
+          <div class="page-header-elem save-button">
             <b onclick="savePage()">Save</b>
           </div>
 
-          <div class="page-header-elem">
+          <div class="page-header-elem delete-button">
             <a href="/page/{{ page.id }}/delete"><b>Delete</b></a>
           </div>
 
