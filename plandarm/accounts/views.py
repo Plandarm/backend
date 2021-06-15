@@ -4,13 +4,14 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
+from .models import Profile
 from .forms import RegistrationForm
+from .decorators import logged_out
 
-# Create your views here.
+def rootRedirect(request):
+    return redirect('login')
 
-def mainPage(request):
-    return render(request, 'accounts/index.html')
-
+@logged_out
 def loginPage(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -19,8 +20,11 @@ def loginPage(request):
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
+            profile = Profile.objects.get(user=user)
+            page_id = profile.page_set.first().id
             login(request, user)
-            return redirect('/admin')
+
+            return redirect('/page/' + str(page_id))
         else:
             messages.info(request, 'Incorrect login data')
 
@@ -30,6 +34,7 @@ def logoutUser(request):
     logout(request)
     return redirect('login')
 
+@logged_out
 def registerPage(request):
     form = RegistrationForm()
 
