@@ -8,14 +8,17 @@ import json
 @login_required(login_url='login')
 def page(request, page_id):
     page = Page.objects.get(id=page_id)
-    context = {'page': page}
  
     if page.owner.user.id != request.user.id:
-        return HttpResponse('You are not authorized to view this page')
+        return HttpResponse('You are not allowed to view this page', status=403)
+
+    user_pages = page.owner.page_set.all()
+    context = {'page': page, 'user_pages': user_pages}
 
     return render(request, 'pages/editor.html', context)
 
 
+@login_required(login_url='login')
 def createPage(request):
     current_user = request.user
     page = Page.objects.create()
@@ -24,10 +27,15 @@ def createPage(request):
     return redirect(f'/page/{page.id}/')
 
 
+@login_required(login_url='login')
 def savePage(request, page_id):
     if request.method == 'POST':
         dict_request = json.loads(request.body)
         page = Page.objects.get(id=page_id)
+
+        if page.owner.user.id != request.user.id:
+            return HttpResponse(status=403)
+
         page.title = dict_request['title']
         page.html = dict_request['body']
         page.save()
@@ -36,7 +44,17 @@ def savePage(request, page_id):
         return HttpResponse(status=405)
 
 
+@login_required(login_url='login')
 def deletePage(request, page_id):
     page = Page.objects.get(id=page_id)
-    page.delete()
-    return HttpResponse("Page was deleted", status=200)
+
+    if page.owner.user.id != request.user.id:
+        return HttpResponse('You are not allowed to delete this page', status=403)
+    
+    if len(page.owner.page_set.all()) > 1:
+        page.delete()
+        first_page = page.owner.page_set.first().id
+        return redirect('/page/' + str(first_page))
+    else:
+        page.delete()
+        return redirect('create_page')

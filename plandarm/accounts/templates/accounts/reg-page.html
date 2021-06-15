@@ -28,7 +28,12 @@
                 <input type="submit" value="Register" id="submit-reg">
             </form>
 
-            {{ form.errors }}
+            {% for field, error in form.errors.items %}
+            <div>
+                {{ error|striptags }}
+            </div>
+            {% endfor %}
+            
 
             <p>Already signed up? <a href="{% url 'login' %}">Log In</a></p>
         </section>
