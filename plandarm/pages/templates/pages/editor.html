@@ -58,7 +58,7 @@
         <script src="{% static 'js/tree-view.js' %}"></script>
 
         <div class="sidebar-footer">
-          <div>New Page</div>
+          <a href="/page/create"><div>New Page</div></a>
         </div>
       </aside>
       
@@ -68,15 +68,19 @@
             <li><a href="#">Main</a></li>
             <li><a href="#">Sub</a></li>
             <li><a href="#">Sub-sub</a></li>
-            <li><a href="{% url 'page' page.id%}">{{ page.title }}</a></li>
+            <li><a href="{% url 'page' page.id%}">{{ page.title | safe }}</a></li>
           </ul>
         
           <div class="page-header-elem" hidden>
             Dark Mode
           </div>
 
-          <div class="page-header-elem" hidden>
-            <b class="plandarm">Plandarm</b>
+          <div class="page-header-elem">
+            <b onclick="savePage()">Save</b>
+          </div>
+
+          <div class="page-header-elem">
+            <a href="/page/{{ page.id }}/delete"><b>Delete</b></a>
           </div>
 
         </div>
@@ -96,6 +100,7 @@
 
             <script src="{% static 'js/block-dnd.js' %}"></script>
             <script src="{% static 'js/add-remove-blocks.js' %}"></script>
+            <script src="{% static 'js/crud-frontend.js' %}"></script>
           </main>
         </div>
       </div>
