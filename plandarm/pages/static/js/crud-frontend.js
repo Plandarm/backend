@@ -12,7 +12,7 @@ async function savePage() {
 
     href = window.location.href.split("/")
 
-    let response = await fetch(`/page/${href[href.length - 2]}/save`, {
+    let response = await fetch(`/page/${href[href.length - 2]}/save/`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json;charset=utf-8",

@@ -13,7 +13,7 @@ class Page(models.Model):
     change_date = models.DateTimeField(auto_now=True, null=True)
 
     def __str__(self):
-        return f"{self.owner.user.username}:{self.id}:{self.title}"
+        return f"{self.owner}:{self.id}:{self.title}"
 
 
 @receiver(post_save, sender=Profile)
