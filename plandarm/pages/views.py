@@ -13,7 +13,8 @@ def page(request, page_id):
         return HttpResponse('You are not allowed to view this page', status=403)
 
     user_pages = page.owner.page_set.all()
-    context = {'page': page, 'user_pages': user_pages}
+    other_pages = page.owner.viewable_pages.all()
+    context = {'page': page, 'user_pages': user_pages, 'other_pages': other_pages}
 
     return render(request, 'pages/editor.html', context)
 

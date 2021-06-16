@@ -44,6 +44,19 @@
             {% endfor %}
         </ul>
 
+        <ul class="sidebar-tree">
+          <div>📝 Not Your pages:<hr></div>
+            {% for page_name in other_pages %}
+
+              {% if page_name.id != page.id %}
+                <a href="{% url 'page' page_name.id %}"><li class="tree-item">{{ page_name.title }}</li></a>
+              {% else %}
+                <a href="{% url 'page' page_name.id %}"><li class="tree-item-current">{{ page_name.title }}</li></a>
+              {% endif %}
+
+            {% endfor %}
+        </ul>
+
         <script src="{% static 'js/tree-view.js' %}"></script>
 
         <div class="sidebar-footer">
