@@ -8,14 +8,20 @@ import json
 @login_required(login_url='login')
 def page(request, page_id):
     page = Page.objects.get(id=page_id)
- 
-    if page.owner.user.id != request.user.id:
+
+    if page.owner.user.id != request.user.id and request.user.profile not in page.viewers.all():
         return HttpResponse('You are not allowed to view this page', status=403)
+    
+    user_pages = request.user.profile.page_set.all()
+    other_pages = request.user.profile.viewable_pages.all()
 
-    user_pages = page.owner.page_set.all()
-    other_pages = page.owner.viewable_pages.all()
-    context = {'page': page, 'user_pages': user_pages, 'other_pages': other_pages}
-
+    if page.owner.user.id != request.user.id:
+        view_only = True
+    else:
+        view_only = False
+    
+    context = {'page': page, 'user_pages': user_pages, 'other_pages': other_pages, 'view_only': view_only}
+    
     return render(request, 'pages/editor.html', context)
 
 

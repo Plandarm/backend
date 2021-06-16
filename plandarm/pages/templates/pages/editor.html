@@ -45,13 +45,13 @@
         </ul>
 
         <ul class="sidebar-tree">
-          <div>📝 Not Your pages:<hr></div>
+          <div>📚 External pages:<hr></div>
             {% for page_name in other_pages %}
 
               {% if page_name.id != page.id %}
-                <a href="{% url 'page' page_name.id %}"><li class="tree-item">{{ page_name.title }}</li></a>
+                <a href="{% url 'page' page_name.id %}"><li class="tree-item">{{ page_name.title }} - [{{ page_name.owner }}]</li></a>
               {% else %}
-                <a href="{% url 'page' page_name.id %}"><li class="tree-item-current">{{ page_name.title }}</li></a>
+                <a href="{% url 'page' page_name.id %}"><li class="tree-item-current">{{ page_name.title }} - [{{ page_name.owner }}]</li></a>
               {% endif %}
 
             {% endfor %}
@@ -67,21 +67,31 @@
       <div class="page column">
         <div class="page-header">
           <ul class="page-path page-header-elem">
-            <li><a href="#">{{page.owner|safe}}</a></li>
-            <li><a href="{% url 'page' page.id%}">{{ page.title | safe }}</a></li>
+            {% if view_only %}
+              <li><a href="#">{{page.owner|safe}}</a></li>
+            {% else %}
+              <li><a href="#">{{page.owner|safe}} (you)</a></li>
+            {% endif %}
+            <li><a href="{% url 'page' page.id%}">{{page.title | safe}}</a></li>
           </ul>
         
           <div class="page-header-elem" hidden>
             Dark Mode
           </div>
-
-          <div class="page-header-elem save-button">
-            <b onclick="savePage()">Save</b>
-          </div>
-
+          
+          {% if view_only %}
           <div class="page-header-elem delete-button">
-            <a href="/page/{{ page.id }}/delete"><b>Delete</b></a>
+            <a href="#"><b>View only. Changes ignored</b></a>
           </div>
+          {% else %}
+            <div class="page-header-elem save-button">
+              <b onclick="savePage()">Save</b>
+            </div>
+
+            <div class="page-header-elem delete-button">
+              <a href="/page/{{ page.id }}/delete"><b>Delete</b></a>
+            </div>
+          {% endif %}
 
         </div>
         
