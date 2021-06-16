@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
-from pages.models import Page
+from .models import Page
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 import json
+
+from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.models import User
 
 
 @login_required(login_url='login')
@@ -60,8 +63,44 @@ def deletePage(request, page_id):
     
     if len(page.owner.page_set.all()) > 1:
         page.delete()
-        first_page = page.owner.page_set.first().id
-        return redirect('/page/' + str(first_page))
+        first_page = request.user.profile.page_set.first().id
+        return redirect('page', first_page)
     else:
         page.delete()
         return redirect('create_page')
+
+
+@login_required(login_url='login')
+def pagePermissions(request, page_id):
+    
+    page = Page.objects.get(id=page_id)
+
+    if page.owner.user.id != request.user.id:
+        return HttpResponse('You are not allowed to edit permissions of this page', status=403)
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+
+        try:
+            new_viewer = User.objects.get(username=username)  
+        except ObjectDoesNotExist:
+            return HttpResponse('No user error')
+        
+        page.viewers.add(new_viewer.profile)
+        return redirect('page_permissions', page_id)
+             
+    viewers = page.viewers.all()
+
+    context = {'viewers': viewers, 'page_id': page_id}
+    return render (request, 'pages/permissions.html', context)
+    
+
+@login_required(login_url='login')
+def permissionRemove(request, page_id, username):
+    page = Page.objects.get(id=page_id)
+
+    if page.owner.user.id != request.user.id:
+        return HttpResponse('You are not allowed to edit permissions of this page', status=403)
+
+    page.viewers.remove(User.objects.get(username=username).profile)
+    return redirect('page', page_id)

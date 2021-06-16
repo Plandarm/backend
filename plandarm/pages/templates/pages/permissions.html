@@ -1,0 +1,37 @@
+<table>
+    <tr>
+        <th>User</th>
+        <th>Role</th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>Me</td>
+        <td>Owner</td>
+        <td></td>
+    </tr>
+    {% for viewer in viewers %}
+        <tr>
+            <td>{{viewer}}</td>
+            <td>View</td>
+            <td><a href="{% url 'permission_remove' page_id viewer %}">X</a></td>
+        </tr>
+    {% endfor %}
+
+</table>
+
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <input placeholder="username.." name="username" type="text" id="username" required>
+
+    <select name="role" id="role" required>
+        <option>View</option>
+    </select>
+
+    <input type="submit" value="Add">
+</form>
+{% for field, error in form.errors.items %}
+<div>
+    {{ error|striptags }}
+</div>
+{% endfor %}
