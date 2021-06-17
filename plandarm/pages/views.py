@@ -117,3 +117,8 @@ def denyAccess(request, page_id, err):
     context = {'page_title': page.title, 'current_user': request.user.username, 'err': err}
 
     return render(request, 'pages/error.html', context)
+
+
+@login_required(login_url='login')
+def honestWork(request):
+    return render(request, 'pages/honest-work.html')
