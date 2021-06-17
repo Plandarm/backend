@@ -10,5 +10,6 @@ urlpatterns = [
 
     path('page/<str:page_id>/permissions/', views.pagePermissions, name='page_permissions'),
     path('page/<str:page_id>/permissions/remove/<str:username>', views.permissionRemove, name='permission_remove'),
-    path('page/<str:page_id>/error:<str:err>/', views.denyAccess, name='error')
+    path('page/<str:page_id>/error:<str:err>/', views.denyAccess, name='error'),
+    path('honest-work/', views.honestWork, name='honest_work'),
 ]

@@ -25,9 +25,9 @@
     <div class="wrapper">
       <aside class="sidebar column">
         <div class="sidebar-header">
-          <div id="user-button">User</div>
-          <div id="search-button">Search</div>
-          <div id="settings-button">Settings</div>
+          <a href="{% url 'honest_work' %}"><div id="user-button">User</div></a>
+          <a href="{% url 'honest_work' %}"><div id="search-button">Search</div></a>
+          <a href="{% url 'honest_work' %}"><div id="settings-button">Settings</div></a>
           <a href="{% url 'logout' %}"><div id="logout-button">Log out</div></a>
         </div>      
         

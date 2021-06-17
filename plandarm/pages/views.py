@@ -77,7 +77,7 @@ def pagePermissions(request, page_id):
     page = Page.objects.get(id=page_id)
 
     if page.owner.user.id != request.user.id:
-        return HttpResponse('You are not allowed to edit permissions of this page', status=403)
+        return redirect('error', page_id, "access")
 
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -117,3 +117,8 @@ def denyAccess(request, page_id, err):
     context = {'page_title': page.title, 'current_user': request.user.username, 'err': err}
 
     return render(request, 'pages/error.html', context)
+
+
+@login_required(login_url='login')
+def honestWork(request):
+    return render(request, 'pages/honest-work.html')

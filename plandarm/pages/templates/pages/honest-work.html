@@ -7,18 +7,12 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="{% static 'css/login-page.css' %}">
-        <title>Erorr</title>
+        <title>Honest Work</title>
     </head>
     <body>
     <div class="wrap-login">
         <section class="form">
-            {% if err == "ownership" %}
-                <h2>You cannot edit this page.</h2>
-            {% elif err == "deletion" %}
-                <h2>You cannot delete this page.</h2>
-            {% elif err == "access" %}
-                <h2>You cannot access this page.</h2>
-            {% endif %}
+            <img src="https://i.kym-cdn.com/entries/icons/original/000/028/021/work.jpg">
             <button id="submit" onclick="window.history.back()">Go back</button>
         </section>
     </div>
