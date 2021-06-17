@@ -13,9 +13,11 @@
     <div class="wrap-login">
         <section class="form">
             {% if err == "ownership" %}
-                <h2>User "{{ current_user }}" cannot edit "{{ page_title }}" page.</h2>
+                <h2>You cannot edit this page.</h2>
             {% elif err == "deletion" %}
-                <h2>User "{{ current_user }}" cannot delete "{{ page_title }}" page.</h2>
+                <h2>You cannot delete this page.</h2>
+            {% elif err == "access" %}
+                <h2>You cannot access this page.</h2>
             {% endif %}
             <button id="submit" onclick="window.history.back()">Go back</button>
         </section>

@@ -77,7 +77,7 @@ def pagePermissions(request, page_id):
     page = Page.objects.get(id=page_id)
 
     if page.owner.user.id != request.user.id:
-        return HttpResponse('You are not allowed to edit permissions of this page', status=403)
+        return redirect('error', page_id, "access")
 
     if request.method == 'POST':
         username = request.POST.get('username')
