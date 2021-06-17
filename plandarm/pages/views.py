@@ -14,7 +14,7 @@ def page(request, page_id):
     page = Page.objects.get(id=page_id)
 
     if page.owner.user.id != request.user.id and request.user.profile not in page.viewers.all():
-        return HttpResponse('You are not allowed to view this page', status=403)
+        return redirect('error', page_id, "ownership")
     
     user_pages = request.user.profile.page_set.all()
     other_pages = request.user.profile.viewable_pages.all()
@@ -60,7 +60,7 @@ def deletePage(request, page_id):
     page = Page.objects.get(id=page_id)
 
     if page.owner.user.id != request.user.id:
-        return HttpResponse('You are not allowed to delete this page', status=403)
+        return redirect('error', page_id, "deletion")
     
     if len(page.owner.page_set.all()) > 1:
         page.delete()
@@ -99,7 +99,7 @@ def pagePermissions(request, page_id):
 
     context = {'viewers': viewers, 'page_id': page_id}
     return render (request, 'pages/permissions.html', context)
-    
+
 
 @login_required(login_url='login')
 def permissionRemove(request, page_id, username):
@@ -110,3 +110,10 @@ def permissionRemove(request, page_id, username):
 
     page.viewers.remove(User.objects.get(username=username).profile)
     return redirect('page_permissions', page_id)
+
+@login_required(login_url='login')
+def denyAccess(request, page_id, err):
+    page = Page.objects.get(id=page_id)
+    context = {'page_title': page.title, 'current_user': request.user.username, 'err': err}
+
+    return render(request, 'pages/error.html', context)
