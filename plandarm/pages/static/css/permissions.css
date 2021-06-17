@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+html, body {
+    font-family: "Open Sans";
+    font-size: 16px;
+    height: 100%;
+    margin: 0;
+    background-color: white;
+}
+
+.wrap-permissions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.form {
+    background-color: rgb(233, 232, 229);
+    padding: 2%;
+    border-radius: 5px;
+    text-align: center;
+}
+
+h1 {
+    font-family: Arial;
+}
+
+table {
+    margin: auto;
+    border-collapse: collapse;
+}
+
+th {
+    font-family: Arial;
+    background-color: rgb(190, 186, 170);
+    padding: 0.7rem;
+    border: 1px solid  white;
+}
+
+td {
+    background-color: rgb(247, 246, 243);
+    padding: 0.5rem;
+    border: 1px solid  white;
+}
+
+#remove {
+    background-color: white;
+    color: red;
+    font-size: 16px;
+    border-radius: 5px;
+    vertical-align: middle;
+    padding: 1px 5px;
+    text-decoration: none;
+}
+
+#remove:hover {
+    background-color: #ffcccb;
+}
+
+#username, #role {
+    font-family: "Open Sans";
+    background-color: white;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+}
+
+#add {
+    background-color: white;
+    color: blue;
+    border: none;
+    font-size: 16px;
+    border-radius: 5px;
+    vertical-align: middle;
+    padding: 1px 20px;
+    cursor: pointer;
+}
+
+#add:hover {
+    background-color: #e5e5ff;
+}
+
+#return {
+    font-family: "Arial";
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 2px 0px;
+    margin-top: 10px;
+    text-decoration: none;
+}
+
+#return:hover {
+    background-color: rgb(190, 186, 170);
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+#messages {
+    font-family: Arial;
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+}

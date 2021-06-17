@@ -25,10 +25,10 @@
     <div class="wrapper">
       <aside class="sidebar column">
         <div class="sidebar-header">
-          <div>User</div>
-          <div>Search</div>
-          <div>Settings</div>
-          <a href="{% url 'logout' %}"><div>Log out</div></a>
+          <div id="user-button">User</div>
+          <div id="search-button">Search</div>
+          <div id="settings-button">Settings</div>
+          <a href="{% url 'logout' %}"><div id="logout-button">Log out</div></a>
         </div>      
         
         <ul class="sidebar-tree">
@@ -36,9 +36,22 @@
             {% for page_name in user_pages %}
 
               {% if page_name.id != page.id %}
-                <a href="{% url 'page' page_name.id %}"><li class="tree-item">{{ page_name.title }}</li></a>
+                <a href="{% url 'page' page_name.id %}"><li class="tree-item">{{ page_name.title|safe|striptags }}</li></a>
               {% else %}
-                <a href="{% url 'page' page_name.id %}"><li class="tree-item-current">{{ page_name.title }}</li></a>
+                <a href="{% url 'page' page_name.id %}"><li class="tree-item-current">{{ page_name.title|safe|striptags }}</li></a>
+              {% endif %}
+
+            {% endfor %}
+        </ul>
+
+        <ul class="sidebar-tree">
+          <div>📚 External pages:<hr></div>
+            {% for page_name in other_pages %}
+
+              {% if page_name.id != page.id %}
+                <a href="{% url 'page' page_name.id %}"><li class="tree-item">{{ page_name.title|safe|striptags }} - [{{ page_name.owner }}]</li></a>
+              {% else %}
+                <a href="{% url 'page' page_name.id %}"><li class="tree-item-current">{{ page_name.title|safe|striptags }} - [{{ page_name.owner }}]</li></a>
               {% endif %}
 
             {% endfor %}
@@ -54,28 +67,42 @@
       <div class="page column">
         <div class="page-header">
           <ul class="page-path page-header-elem">
-            <li><a href="#">{{page.owner|safe}}</a></li>
-            <li><a href="{% url 'page' page.id%}">{{ page.title | safe }}</a></li>
+            {% if view_only %}
+              <li><a href="#">{{page.owner|safe|striptags}}</a></li>
+            {% else %}
+              <li><a href="#">{{page.owner|safe|striptags}} (you)</a></li>
+            {% endif %}
+            <li><a href="{% url 'page' page.id%}">{{page.title|safe|striptags}}</a></li>
           </ul>
         
           <div class="page-header-elem" hidden>
             Dark Mode
           </div>
-
-          <div class="page-header-elem save-button">
-            <b onclick="savePage()">Save</b>
-          </div>
-
+          
+          {% if view_only %}
           <div class="page-header-elem delete-button">
-            <a href="/page/{{ page.id }}/delete"><b>Delete</b></a>
+            <a href="#"><b>View only. Changes ignored</b></a>
           </div>
+          {% else %}
+            <div class="page-header-elem share-button">
+              <a href="/page/{{ page.id }}/permissions">Share ↗</a>
+            </div>
+
+            <div class="page-header-elem save-button">
+              <b onclick="savePage()">Save</b>
+            </div>
+
+            <div class="page-header-elem delete-button">
+              <a href="/page/{{ page.id }}/delete"><b>Delete</b></a>
+            </div>
+          {% endif %}
 
         </div>
         
         <div class="page-wrapper filter">
           <main class="page-main">
             <section class="main-heading">
-              <h1 contenteditable="true">{{ page.title }}</h1>
+              <h1 contenteditable="true">{{ page.title|safe }}</h1>
             </section>
 
             <hr class="divider">

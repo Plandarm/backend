@@ -1,0 +1,67 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'css/permissions.css' %}">
+        <title>Permissions</title>
+    </head>
+
+    <body>
+    <div class="wrap-permissions">   
+        <section class="form">
+            <h1>Page Permissions</h1>    
+            <hr>
+            <table>
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Role</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td align="left">You</td>
+                        <td>Owner</td>
+                        <td></td>
+                    </tr>
+                    {% for viewer in viewers %}
+                        <tr>
+                            <td align="left"">{{viewer}}</td>
+                            <td>Viewer</td>
+                            <td align="left"><a id="remove" href="{% url 'permission_remove' page_id viewer %}">Remove</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+
+                <tfoot>
+                    <tr>
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <td><input placeholder="username.." name="username" type="text" id="username" required></td>
+                        <td><select name="role" id="role" required>
+                                <option>Viewer</option>
+                        </select></td>
+                        <td><input id="add" type="submit" value="Add"></td>
+                    </form>
+                    </tr>
+                </tfoot>
+            </table>
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <div id="messages">{{message}}</div>
+                {% endfor %}
+            {% endif %}
+
+            <a href="{% url 'page' page_id %}"><div id="return"><b>Back to editing</b></div></a>
+
+        </section> 
+    </div>
+    </body>
+</html>
