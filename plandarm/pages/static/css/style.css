@@ -15,7 +15,6 @@ body {
   height: 100vh;
 }
 
-
 /* sidebar-related parameters */
 .sidebar {
   background:rgb(247, 246, 243);
@@ -38,22 +37,23 @@ body {
   background-color:rgb(175, 168, 146);
 }
 
-.sidebar-header div:nth-of-type(1):hover::after {
+/* upper buttons */
+#user-button:hover::after {
   content: "🧑";
   margin-left: 6px;
 }
 
-.sidebar-header div:nth-of-type(2):hover::after {
+#search-button:hover::after {
   content: "🔎";
   margin-left: 6px;
 }
 
-.sidebar-header div:nth-of-type(3):hover::after {
+#settings-button:hover::after {
   content: "⚙️";
   margin-left: 6px;
 }
 
-.sidebar-header a:nth-of-type(1)>div:hover::after {
+#logout-button:hover::after {
   content: "🔑";
   margin-left: 6px;
 }
@@ -77,7 +77,6 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 
 .sidebar-tree a {
   text-decoration: none;
@@ -163,10 +162,22 @@ body {
 .save-button {
   cursor: pointer; 
   font-family: Arial;
-  /* border: 1px solid black; */
+  border: 1px solid black;
   border-radius: 5px;
   padding: 5px 10px;
 
+}
+
+.share-button {
+  cursor: pointer; 
+  font-family: Arial;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.share-button > a{
+  text-decoration: none;
+  color: black;
 }
 
 .delete-button {
@@ -179,7 +190,6 @@ body {
 .delete-button > a{
   text-decoration: none;
   color: #ee5037;
-
 }
 
 .page-header div:hover {
@@ -229,7 +239,6 @@ ul.page-path li+li:before {
   content: "/\00a0";
 }
 
-
 /* Content-related parameters */
 .main-heading {
   font-family: Arial;
@@ -247,7 +256,6 @@ ul.page-path li+li:before {
   width: 80%;
   margin: auto;
 }
-
 
 /* block-related parameters */
 .block {

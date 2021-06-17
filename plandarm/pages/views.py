@@ -6,6 +6,7 @@ import json
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
+from django.contrib import messages
 
 
 @login_required(login_url='login')
@@ -81,11 +82,16 @@ def pagePermissions(request, page_id):
     if request.method == 'POST':
         username = request.POST.get('username')
 
+        if username == request.user.username:
+            messages.error(request, 'This role cannot be assigned to Owner')
+            return redirect('page_permissions', page_id)
+
         try:
             new_viewer = User.objects.get(username=username)  
         except ObjectDoesNotExist:
-            return HttpResponse('No user error')
-        
+            messages.error(request, 'User does not exist')
+            return redirect('page_permissions', page_id)
+
         page.viewers.add(new_viewer.profile)
         return redirect('page_permissions', page_id)
              
@@ -103,4 +109,4 @@ def permissionRemove(request, page_id, username):
         return HttpResponse('You are not allowed to edit permissions of this page', status=403)
 
     page.viewers.remove(User.objects.get(username=username).profile)
-    return redirect('page', page_id)
+    return redirect('page_permissions', page_id)
