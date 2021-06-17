@@ -10,7 +10,7 @@ def page(request, page_id):
     page = Page.objects.get(id=page_id)
  
     if page.owner.user.id != request.user.id:
-        return HttpResponse('You are not allowed to view this page', status=403)
+        return redirect('error', page_id, "ownership")
 
     user_pages = page.owner.page_set.all()
     context = {'page': page, 'user_pages': user_pages}
@@ -49,7 +49,7 @@ def deletePage(request, page_id):
     page = Page.objects.get(id=page_id)
 
     if page.owner.user.id != request.user.id:
-        return HttpResponse('You are not allowed to delete this page', status=403)
+        return redirect('error', page_id, "deletion")
     
     if len(page.owner.page_set.all()) > 1:
         page.delete()
@@ -58,3 +58,11 @@ def deletePage(request, page_id):
     else:
         page.delete()
         return redirect('create_page')
+
+
+def denyAccess(request, page_id, err):
+    page = Page.objects.get(id=page_id)
+    context = {'page_title': page.title, 'current_user': request.user.username, 'err': err}
+
+    return render(request, 'pages/error.html', context)
+
